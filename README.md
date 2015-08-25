@@ -1,5 +1,6 @@
 # elastica
 Code for Keemink & van Rossum (2015) - A unified account of tilt illusions, association fields, and contour detection based on elastica
+www.sciencedirect.com/science/article/pii/S0042698915002540
 
 See the Elastica Basics notebook for simple elastica explanations.
 
