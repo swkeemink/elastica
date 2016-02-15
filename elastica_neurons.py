@@ -102,11 +102,11 @@ class scene:
         
     def findE(self,c,f,X):
         ''' find E, the approximated sharon energy
-        Inputs
+        Inputss
         ----------
         - c: current bar orientation
         - f: flanker orientation
-        - X: relative flanker distance and position orientation         
+        - X: relative flanker position (x,y)    
         '''
         # define x and y 
         x = X[0]
@@ -126,7 +126,7 @@ class scene:
         ----------
         - c: current bar orientation (can be double or array, if array D returns an array of D values)
         - f: flanker orientation  (double)
-        - X: relative flanker distance and position orientation         
+        - X: relative flanker position (x,y)        
         '''
         
         # check if c is an array, and assign length (note, f cannot be array)
