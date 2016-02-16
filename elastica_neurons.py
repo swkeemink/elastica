@@ -6,7 +6,7 @@ The elastica energy is estimated using the integration method outlined in Sharon
 
 I.e. it's assumed to be a polynomial f = function, and 
 
-author: sanderkeemink@gmail.com
+author: swkeemink@scimail.eu
 '''
 
 
