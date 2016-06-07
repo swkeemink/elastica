@@ -104,9 +104,13 @@ class scene:
         ''' find E, the approximated sharon energy
         Inputss
         ----------
-        - c: current bar orientation
-        - f: flanker orientation
-        - X: relative flanker position (x,y)    
+        - c: current bar orientation, relative to the vertical (can be double or array, if array D returns an array of D values)
+        - f: flanker orientation, relative to the vertical  (double)
+        - X: flanker position, relative to the current bar (x,y)
+
+	So, as examples...
+	findE(0,0,[0,1]) would be two vertical bars, positioned vertically in a line. 
+	findE(pi/2,pi/2,[1,0]) would be two horizontal bars, positioned horizontally in a line.        
         '''
         # define x and y 
         x = X[0]
@@ -124,9 +128,13 @@ class scene:
         ''' find the direction invariant approximated sharon energy
         Inputs
         ----------
-        - c: current bar orientation (can be double or array, if array D returns an array of D values)
-        - f: flanker orientation  (double)
-        - X: relative flanker position (x,y)        
+        - c: current bar orientation, relative to the vertical (can be double or array, if array D returns an array of D values)
+        - f: flanker orientation, relative to the vertical  (double)
+        - X: flanker position, relative to the current bar (x,y)
+
+	So, as examples...
+	E(0,0,[0,1]) would be two vertical bars, positioned vertically in a line. 
+	E(pi/2,pi/2,[1,0]) would be two horizontal bars, positioned horizontally in a line.        
         '''
         
         # check if c is an array, and assign length (note, f cannot be array)
