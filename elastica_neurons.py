@@ -199,7 +199,7 @@ class scene:
         # return img
         return img
 
-    def simulate(self,iLoc,torus='on'):
+    def simulate(self,iLoc,torus='on',modtype='fixed'):
         '''
         For a location iLoc simulate the responses given the scene:
         - find the orientation at iLoc to get the drive
@@ -211,6 +211,10 @@ class scene:
         -------------------------
         - iLoc: the index of the location to simulate
         - torus: if 'on', put the scene on a torus
+        - modtype: Modulation type. either 'fixed' or 'cdep'. If fixed, 
+                    modulation is done relative a neuron's preferred 
+                    orientation. If cdep, or center dependent, the modulation 
+                    is done relative to the local orientation. 
         '''        
         # find the orientation of the bar in iLoc
         c = self.O[iLoc] # 'centre' flanker
@@ -247,7 +251,13 @@ class scene:
         rs=1
         for i in range(self.n-1): # for all locations except iLoc
             # find D across all preferred orientations
-            E =  self.E(self.ang,F[i],X[i,:])
+            if modtype == 'fixed':
+                E =  self.E(self.ang,F[i],X[i,:])
+            elif modtype == 'cdep':
+                E =  self.E(c,F[i],X[i,:])
+            else:
+                raise ValueError('modulation type not recognized. ' +
+                                  'Use either cdep or fixed')
             
             # update the modulation
             rs*=exp(-self.a*(E-self.E0)/R[i])
