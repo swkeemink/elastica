@@ -261,12 +261,13 @@ class scene:
         self.FR[iLoc,:] = rf#/sum(rf)
         self.est[iLoc] = self.popvec(rf)
 
-    def simulate_all(self):
+    def simulate_all(self,iLoc,torus='on'):
         '''
-        Simulate all locations
+        Simulate all locations.
+        For options see simulate() function.
         '''
         for i in range(self.n):
-            self.simulate(i)
+            self.simulate(i,iLoc,torus)
             
     def saliency(self,base):
         '''
