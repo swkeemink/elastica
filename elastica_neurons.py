@@ -261,13 +261,13 @@ class scene:
         self.FR[iLoc,:] = rf#/sum(rf)
         self.est[iLoc] = self.popvec(rf)
 
-    def simulate_all(self,iLoc,torus='on'):
+    def simulate_all(self,torus='on'):
         '''
         Simulate all locations.
-        For options see simulate() function.
+        - torus = 'on' : turns torus behaviour on or off
         '''
         for i in range(self.n):
-            self.simulate(i,iLoc,torus)
+            self.simulate(i,torus)
             
     def saliency(self,base):
         '''
