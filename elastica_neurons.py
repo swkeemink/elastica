@@ -278,12 +278,12 @@ class scene:
         if base == 'mean':
             for i in range(self.n):
                 sal[i] = pl.mean(self.FR[i,:])
-            self.sal = sal/max(sal)
+            self.sal = sal/sal.mean()
             
         if base == 'max':
             for i in range(self.n):
                 sal[i] = max(self.FR[i,:])
-            self.sal = sal/max(sal)
+            self.sal = sal/sal.mean()
      
         
         
