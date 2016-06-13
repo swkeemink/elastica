@@ -95,7 +95,7 @@ class scene:
                 else: # otherwise make red
                     c = 'r'
             # plot the bar
-            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':4,'alpha':alphas[i]/max(alphas)})
+            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':4,'alpha':alphas[i]})
         
         # return img object
         return img        
@@ -174,11 +174,12 @@ class scene:
         # transform other coordinates according to torus
         # does not work when there are only two bars present! 
         if torus == 'on':
-            mx = self.dim[0]
-            X[X[:,0]<-mx/2,0] += mx
-            X[X[:,1]<-mx/2,1] += mx
-            X[X[:,0]>mx/2,0] -= mx
-            X[X[:,1]>mx/2,1] -= mx
+            mx0 = self.dim[0]         
+            mx1 = self.dim[1]
+            X[X[:,0]<-mx0/2,0] += mx0
+            X[X[:,1]<-mx1/2,1] += mx1
+            X[X[:,0]>mx0/2,0] -= mx0
+            X[X[:,1]>mx1/2,1] -= mx1
             
         # find the distances from every other bar to the 'center'
         R = pl.sqrt(X[:,0]**2+X[:,1]**2) 
@@ -235,11 +236,12 @@ class scene:
         # transform other coordinates according to torus, if necessary
         # does not work when there are only two bars present! 
         if torus == 'on':
-            mx = self.dim[0]            
-            X[X[:,0]<-mx/2,0] += mx
-            X[X[:,1]<-mx/2,1] += mx
-            X[X[:,0]>mx/2,0] -= mx
-            X[X[:,1]>mx/2,1] -= mx
+            mx0 = self.dim[0]         
+            mx1 = self.dim[1]
+            X[X[:,0]<-mx0/2,0] += mx0
+            X[X[:,1]<-mx1/2,1] += mx1
+            X[X[:,0]>mx0/2,0] -= mx0
+            X[X[:,1]>mx1/2,1] -= mx1
             
         # find the distances from every other location to iLoc
         R = pl.sqrt(X[:,0]**2+X[:,1]**2) 
@@ -271,13 +273,13 @@ class scene:
         self.FR[iLoc,:] = rf#/sum(rf)
         self.est[iLoc] = self.popvec(rf)
 
-    def simulate_all(self,torus='on'):
+    def simulate_all(self,torus='on',modtype='fixed'):
         '''
         Simulate all locations.
         - torus = 'on' : turns torus behaviour on or off
         '''
         for i in range(self.n):
-            self.simulate(i,torus)
+            self.simulate(i,torus,modtype)
             
     def saliency(self,base):
         '''
