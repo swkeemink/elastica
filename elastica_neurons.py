@@ -268,7 +268,7 @@ class scene:
                 # update the modulation
                 rs*=exp(-self.a*(E-self.E0)/R[i])
             elif self.modtype == 'distance':
-                rs *= 1-self.a/R[i]*exp(self.Kc*cos(2*(refs-F[i])))
+                rs *= 1-self.a/R[i]**2*exp(self.Kc*cos(2*(refs-F[i])))
             else:
                 raise ValueError('modtype is either elastica or distance')
             
