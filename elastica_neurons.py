@@ -99,7 +99,7 @@ class scene:
                 else: # otherwise make red
                     c = 'r'
             # plot the bar
-            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':4,'alpha':alphas[i]/max(alphas)})
+            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':4,'alpha':alphas[i]})
         
         # return img object
         return img        
