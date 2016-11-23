@@ -28,7 +28,7 @@ def mises(a,k,ref,x):
 
 class scene:
     """ Scene class. Define a scene, for which the neural responses to each bar can then be found """
-    def __init__(self,N,O,X,dim,Kc,Ac,a,E0):
+    def __init__(self,N,O,X,dim,Kc,Ac,a,E0,surdep='fixed',modtype='elastica'):
         self.n = len(O) # number of bars
         self.N = N      # number of neurons per location
         self.O = O      # bar orientations
@@ -43,7 +43,11 @@ class scene:
         self.FRs = pl.zeros((self.n,N))   # modulation from smoothest targets (net effect)
         self.FR = pl.zeros((self.n,N))   # final 'firing rates' or 'probabilities' for each bar
         self.est = pl.zeros(self.n)   # to store the orientation estimates
-  
+        self.surdep = surdep # center dependent or fixed (whether context
+                             # modulation should be relative to centre or pref)
+        self.modtype = modtype # type of modulation, either elastica or 
+                               # distant dependent
+        
     def popvec(self,X):
         ''' Population vector for the set of responses X, with each value in 
         the vector X corresponding to an angle in self.ang
@@ -246,11 +250,25 @@ class scene:
         # find the modulation from all other lcoations
         rs=1
         for i in range(self.n-1): # for all locations except iLoc
-            # find D across all preferred orientations
-            E =  self.E(self.ang,F[i],X[i,:])
-            
-            # update the modulation
-            rs*=exp(-self.a*(E-self.E0)/R[i])
+            # get reference orientation(s)
+            if self.surdep == 'fixed':
+                refs = self.ang
+            elif self.surdep == 'cdep':
+                refs = c
+            else:
+                raise ValueError('Wrong surdep type, either fixed or cdep.')
+                
+            # get modulations
+            if self.modtype == 'elastica':
+                # find D across all preferred orientations
+                E =  self.E(refs,F[i],X[i,:])
+                
+                # update the modulation
+                rs*=exp(-self.a*(E-self.E0)/R[i])
+            elif self.modtype == 'distance':
+                rs *= 1-self.a/R[i]*exp(self.Kc*cos(2*(refs-F[i])))
+            else:
+                raise ValueError('modtype is either elastica or distance')
             
         # find final response in location iLoc across preferred oreintations
         rf = rc*rs
