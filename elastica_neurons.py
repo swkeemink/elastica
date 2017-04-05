@@ -20,7 +20,7 @@ def mises(a,k,ref,x):
     Inputs
     -----------------------
     - a: determines magnitude
-    - k: determines width (low k is wider width)
+    - k: determines width (lower k is wider width)
     - ref: reference angle
     - x: input angle
     '''
