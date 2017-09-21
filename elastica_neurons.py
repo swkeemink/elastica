@@ -65,7 +65,7 @@ class scene:
         # return the angle of the population vector
         return 0.5*pl.arctan2(vest0[1],vest0[0])
         
-    def plotscene(self,length=1,oriens = 'NA',alphas='NA',colors='off'):
+    def plotscene(self,length=1,oriens = 'NA',alphas='NA',widths='NA',colors='off'):
         ''' Plot the scene
 
         Inputs
@@ -73,6 +73,7 @@ class scene:
         - length: length of each plotted bar
         - oriens: orientations of each bar, if 'NA' use the orientations as defined in self.O
         - alphas: the alpha values for each bar, if 'NA' set all to one
+	- widths: the widths of each bar, if 'NA', set all to 1
         - colors: the color of each bar, if 'NA' all are black
         oriens and alphas should all be arrays of length self.n if 'off'
         
@@ -80,6 +81,7 @@ class scene:
         # check for alphas/oriens inputs
         if alphas == 'NA': alphas = pl.ones(self.n)
         if oriens == 'NA': oriens = self.O
+	if widths == 'NA': widths = pl.ones(self.n)
             
         # initiate image
         img = hv.Curve([])
@@ -99,7 +101,7 @@ class scene:
                 else: # otherwise make red
                     c = 'r'
             # plot the bar
-            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':4,'alpha':alphas[i]})
+            img *= hv.Curve(zip([x-sin(f)*length,x+sin(f)*length],[y-cos(f)*length,y+cos(f)*length]))(style={'color':c,'linewidth':widths[i],'alpha':alphas[i]})
         
         # return img object
         return img        
